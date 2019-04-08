@@ -41,7 +41,7 @@ class Fixer(object):
 
         symbols_list = [*data['symbols']]
         return {
-            'currencies': list(zip(symbols_list, symbols_list)),
+            'symbols': list(zip(symbols_list, symbols_list)),
         }
 
     def rate(self, sell, buy):

@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     # 'django.contrib.messages',
     # 'django.contrib.staticfiles',
 
+    'corsheaders',
     'fet',
 ]
 
 MIDDLEWARE = [
     # 'django.middleware.security.SecurityMiddleware',
     # 'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -142,6 +144,7 @@ REST_FRAMEWORK = {
 FIXER_API_URL = 'http://data.fixer.io/api/'
 FIXER_API_KEY = '63d46d3b44fdd339daa9ba25d71ea3e4'
 
+
 ##############################################
 # Cache settings
 
@@ -151,6 +154,7 @@ CACHES = {
         'LOCATION': '/tmp/fet_cache',
     }
 }
+
 
 ##############################################
 # Logging settings
@@ -182,3 +186,9 @@ LOGGING = {
         },
     },
 }
+
+
+##############################################
+# Logging settings
+
+CORS_ORIGIN_ALLOW_ALL = True

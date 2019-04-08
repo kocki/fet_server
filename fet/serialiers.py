@@ -60,7 +60,7 @@ class ForeignCurrencyTradesSerializer(serializers.ModelSerializer):
         - preparing transaction with period before accepting (paying it)
         """
         fixer = Fixer()
-        symbols = get_list_from_choices(fixer.symbols()['currencies'])
+        symbols = get_list_from_choices(fixer.symbols()['symbols'])
         sell_currency = data['sell_currency']
         buy_currency = data['buy_currency']
         rate = data['rate']

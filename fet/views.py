@@ -1,11 +1,9 @@
 """REST API views for FET."""
 from django.http import JsonResponse
-from django.views import View
 from rest_framework import mixins
 from rest_framework import views
 from rest_framework import viewsets
 from rest_framework import exceptions
-from rest_framework import status
 from .models import ForeignCurrencyTrades
 from .serialiers import ForeignCurrencyTradesSerializer
 from .services import Fixer
@@ -29,17 +27,9 @@ class FixerView(views.APIView):
 
     api = Fixer()
     method = None
-    method_args = []
-    method_kwargs = {}
-    empty_option = ('', '')
-
-    def __init__(self, *args, **kwargs):
-        """Set up API's."""
-        super(FixerView, self).__init__(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         """Change choices to JSON."""
-        print('args', args)
         return JsonResponse(getattr(self.api, self.method)(*args))
 
 
