@@ -1,7 +1,6 @@
 """REST API serializers."""
 
 # 3rd-party
-from django.core.cache import cache
 from fet.services import Fixer
 from fet.utils import get_list_from_choices
 from rest_framework import exceptions

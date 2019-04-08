@@ -190,3 +190,13 @@ LOGGING = {
 # Logging settings
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+############################################
+# Read local settings (this should be last):
+
+try:
+    from .settings_local import *  # noqa: F403 F401
+except ImportError:
+    import traceback
+    traceback.print_exc()

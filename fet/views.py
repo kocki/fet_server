@@ -25,8 +25,12 @@ class ForeignExchangeTradesViewSet(mixins.ListModelMixin,
 class FixerView(views.APIView):
     """Base quotation API view."""
 
-    api = Fixer()
+    api = None
     method = None
+
+    def __init__(self):
+        """Set up."""
+        self.api = Fixer()
 
     def get(self, request, *args, **kwargs):
         """Change choices to JSON."""

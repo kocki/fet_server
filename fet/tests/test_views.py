@@ -1,14 +1,16 @@
 # Standard Library
 from decimal import Decimal
 from decimal import getcontext
+from unittest import mock
 
 # 3rd-party
 from django.urls import reverse
 from fet.tests.factories import ForeignExchangeTradeFactory
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
+
+# Local
 from ..models import ForeignExchangeTrade
-from unittest import mock
 
 
 class TestForeignExchangeTradesViewSet(APITestCase):
@@ -78,8 +80,32 @@ class TestFixerView(APITestCase):
             'sell': 'GBP',
             'buy': 'PLN',
         }
-        print(self.client.get(base_url, params).content)
-        print(mock_fixer.__dict__)
+        self.client.get(base_url, params)
 
         assert mock_fixer.call_count == 1
 
+    def test_rate_no_params(self):  # noqa: D102
+        base_url = reverse('api-fixer-rate')
+        params = {
+            'sell': 'GBP',
+        }
+        response = self.client.get(base_url, params)
+
+        assert 'Query params `sell` and `buy` must be set.' in response.content.decode()
+
+    @mock.patch('fet.views.Fixer')
+    def test_symbols(self, mock_fixer):  # noqa: D102
+        mock_fixer.return_value.symbols.return_value = {
+            'symbols': [
+                ['EUR', 'EUR'],
+                ['GBP', 'GBP'],
+            ]
+        }
+        base_url = reverse('api-fixer-symbols')
+        params = {
+            'sell': 'GBP',
+            'buy': 'PLN',
+        }
+        self.client.get(base_url, params)
+
+        assert mock_fixer.call_count == 1
