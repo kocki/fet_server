@@ -59,12 +59,13 @@ class ForeignExchangeTrade(models.Model):
     @classmethod
     def create_transaction_id(cls):
         """Create random transaction id."""
-        transaction_id = get_random_string(
+        random_part = get_random_string(
             length=TRANSACTION_ID_LENGTH,
             allowed_chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
         )
+        transaction_id = '{0}{1}'.format(TRANSACTION_ID_PREFIX, random_part)
 
         if cls.objects.filter(transaction_id=transaction_id).exists():
             return cls.create_transaction_id()
 
-        return '{0}{1}'.format(TRANSACTION_ID_PREFIX, transaction_id)
+        return transaction_id

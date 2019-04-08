@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Tests for app config module."""
 
+# 3rd-party
 # Django
 from django.apps import apps
 from django.test import TestCase

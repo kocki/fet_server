@@ -5,9 +5,8 @@ from unittest import mock
 
 # 3rd-party
 from django.urls import reverse
-from rest_framework import status
-
 from fet.tests.factories import ForeignExchangeTradeFactory
+from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 

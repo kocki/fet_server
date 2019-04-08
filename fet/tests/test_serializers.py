@@ -1,9 +1,12 @@
 """Serializers tests."""
-import pytest
 
-from ..serializers import ForeignExchangeTradeSerializer
+# 3rd-party
+import pytest
 from django import test
 from rest_framework import exceptions
+
+# Local
+from ..serializers import ForeignExchangeTradeSerializer
 
 
 class TestForeignExchangeTradeSerializer(test.TestCase):
