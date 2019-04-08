@@ -5,6 +5,8 @@ from unittest import mock
 
 # 3rd-party
 from django.urls import reverse
+from rest_framework import status
+
 from fet.tests.factories import ForeignExchangeTradeFactory
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
@@ -64,6 +66,27 @@ class TestForeignExchangeTradesViewSet(APITestCase):
         assert ForeignExchangeTrade.objects.count() == 1
         assert data['transaction_id'] == new_trade.transaction_id
         assert str(data['buy_amount']) == str(new_trade.buy_amount)
+
+    @mock.patch('fet.serializers.get_list_from_choices')
+    @mock.patch('fet.serializers.Fixer')
+    def test_foreign_exchange_trade_viewset_create_wrong_symbol(  # noqa: D102
+            self, mock_fixer, mock_symbols):
+        mock_symbols.return_value = ['PLN']
+        getcontext().prec = 2
+        mock_fixer.return_value.rate.return_value = {'rate': Decimal('4.9991')}
+
+        base_url = reverse('foreignexchangetrade-list')
+        data = {
+            'sell_currency': 'GBP',
+            'buy_currency': 'PLN',
+            'sell_amount': 1000,
+            'rate': 4.9991,
+
+        }
+        response = self.client.post(base_url, data)
+
+        assert 'Disallowed currency symbol: GBP' in response.content.decode()
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 class TestFixerView(APITestCase):

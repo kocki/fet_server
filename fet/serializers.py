@@ -74,7 +74,7 @@ class ForeignExchangeTradeSerializer(serializers.ModelSerializer):
         if symbols_check:
             raise exceptions.ValidationError(
                 code='disallowed_currency_symbol',
-                detail='{0}'.format(', '.join(symbols_check)),
+                detail='Disallowed currency symbol: {0}'.format(', '.join(symbols_check)),
             )
 
         self.validate_rate_data(
