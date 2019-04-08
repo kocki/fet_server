@@ -1,5 +1,6 @@
 """FET models definition."""
 
+# 3rd-party
 from django.db import models
 from django.utils.crypto import get_random_string
 
@@ -7,7 +8,7 @@ TRANSACTION_ID_PREFIX = 'TR'
 TRANSACTION_ID_LENGTH = 7  # length without prefix
 
 
-class ForeignCurrencyTrades(models.Model):
+class ForeignExchangeTrade(models.Model):
     """Storage for trades.
 
     `transaction_id` is intended to use as external unique reference of particular transaction.
@@ -53,7 +54,7 @@ class ForeignCurrencyTrades(models.Model):
         if self.pk is None:  # new instance
             self.transaction_id = self.create_transaction_id()
 
-        super(ForeignCurrencyTrades, self).save(*args, **kwargs)
+        super(ForeignExchangeTrade, self).save(*args, **kwargs)
 
     @classmethod
     def create_transaction_id(cls):

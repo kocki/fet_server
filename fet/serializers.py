@@ -1,23 +1,26 @@
 """REST API serializers."""
+
+# 3rd-party
+from django.core.cache import cache
+from fet.services import Fixer
+from fet.utils import get_list_from_choices
+from rest_framework import exceptions
 from rest_framework import serializers
 
-from fet.services import Fixer
-from django.core.cache import cache
-
-from fet.utils import get_list_from_choices
-from .models import ForeignCurrencyTrades
-from rest_framework import exceptions
+# Local
+from .models import ForeignExchangeTrade
 
 
-class ForeignCurrencyTradesSerializer(serializers.ModelSerializer):
-    """Serializer for ForeignCurrencyTrades data."""
+class ForeignExchangeTradeSerializer(serializers.ModelSerializer):
+    """Serializer for ForeignExchangeTrade data."""
 
     transaction_id = serializers.CharField(required=False)
     buy_amount = serializers.DecimalField(max_digits=12, decimal_places=2, required=False)
-    date_booked = serializers.DateTimeField(required=False)
+    rate = serializers.DecimalField(max_digits=40, decimal_places=20, required=False)
+    date_booked = serializers.SerializerMethodField(required=False)
 
     class Meta:
-        model = ForeignCurrencyTrades
+        model = ForeignExchangeTrade
         fields = (
             'transaction_id',
             'sell_currency',
@@ -27,6 +30,10 @@ class ForeignCurrencyTradesSerializer(serializers.ModelSerializer):
             'rate',
             'date_booked',
         )
+
+    def get_date_booked(self, obj):
+        """Return properly formatted time."""
+        return obj.date_booked.isoformat()
 
     @staticmethod
     def validate_rate_data(rate_data, sell_currency, rate):
@@ -44,7 +51,6 @@ class ForeignCurrencyTradesSerializer(serializers.ModelSerializer):
 
         if rate_data['rate'] != rate:
             # below error would provide to refresh data on frontend (cache is flushed)
-            cache.clear()
             raise exceptions.ValidationError(
                 code='currency_rate_error',
                 detail="Currency rate error.",

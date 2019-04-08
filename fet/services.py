@@ -1,10 +1,14 @@
 """Additional bussiness logic implementation."""
+
+# Standard Library
+from decimal import Decimal
+from decimal import getcontext
+from urllib.parse import urljoin
+
+# 3rd-party
 import requests
 from django.conf import settings
-from urllib.parse import urljoin
-from decimal import Decimal
 from fet.utils import get_payload_data
-from decimal import getcontext
 
 
 class Fixer(object):

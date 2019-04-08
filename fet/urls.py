@@ -1,24 +1,26 @@
 """FET urls."""
-from rest_framework.routers import SimpleRouter
-from .views import ForeignCurrencyTradesViewSet
-from .views import Symbols
-from .views import Rate
+# 3rd-party
+from django.urls import include
 from django.urls import path
 from django.urls import re_path
-from django.urls import include
-from django.views.decorators.cache import cache_page
+from rest_framework.routers import SimpleRouter
+
+# Local
+from .views import ForeignExchangeTradesViewSet
+from .views import RateView
+from .views import SymbolsView
 
 router = SimpleRouter()
-router.register('fet', ForeignCurrencyTradesViewSet)
+router.register('fet', ForeignExchangeTradesViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
     re_path(
         '^symbols/$',
-        cache_page(60 * 60)(Symbols.as_view()),  # cache for save no. of requests to fixer api
-        name='api_fixer_symbols'),
+        SymbolsView.as_view(),  # cache for save no. of requests to fixer api
+        name='api-fixer-symbols'),
     re_path(
         '^rate/$',
-        cache_page(60 * 60)(Rate.as_view()),  # cache for save no. of requests to fixer api
-        name='api_fixer_symbols'),
+        RateView.as_view(),  # cache for save no. of requests to fixer api
+        name='api-fixer-rate'),
 ]
