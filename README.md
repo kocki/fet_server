@@ -2,7 +2,7 @@
 
 ## Development setup
 
-#### In development dir:
+#### In development dir  initially:
 ```
 # Create virtualenv
 python3 -m venv venv
@@ -30,6 +30,7 @@ git clone git@github.com:kocki/fet_server.git
 ./fet_server/bin/develop.sh
 # replace API_KEY in project/settings_local.py
 ```
+
 
 #### Testing:
 ```
