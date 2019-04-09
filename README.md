@@ -2,7 +2,7 @@
 
 ## Development setup
 
-####In developement dir:
+#### In developement dir:
 ```
 # Create virtualenv
 python3 -m venv venv
