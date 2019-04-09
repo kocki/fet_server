@@ -2,7 +2,7 @@
 
 ## Development setup
 
-#### In development dir  initially:
+### In development dir  initially:
 ```
 # Create virtualenv
 python3 -m venv venv
@@ -32,10 +32,13 @@ git clone git@github.com:kocki/fet_server.git
 ```
 
 
-#### Testing:
+### Testing:
 ```
 py.test --cov --cov-report term-missing:skip-covered
 ```
+
+### Warnings
+* Free fixer.io account services only EUR sell currency.
 
 
 ## To Do
