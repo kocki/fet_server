@@ -22,6 +22,7 @@ echo "FIXER_API_KEY = 'API_KEY'" > project/settings_local.py
 ./manage.py migrate
 ./manage.py runserver
 ```
+
 or
 ```
 # Fetch repo
