@@ -36,3 +36,7 @@ git clone git@github.com:kocki/fet_server.git
 ```
 py.test --cov --cov-report term-missing:skip-covered
 ```
+
+
+## To Do
+* CI/CD setup
