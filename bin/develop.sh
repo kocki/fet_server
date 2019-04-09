@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Create virtualenv
 python3 -m venv venv
-source venv/bin/activate
+source ./venv/bin/activate
 
 cd fet_server
 
