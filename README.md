@@ -22,6 +22,13 @@ echo "FIXER_API_KEY = 'API_KEY'" > project/settings_local.py
 ./manage.py migrate
 ./manage.py runserver
 ```
+or
+```
+# Fetch repo
+git clone git@github.com:kocki/fet_server.git
+./fet_server/bin/develop.sh
+# replace API_KEY in project/settings_local.py
+```
 
 #### Testing:
 ```
