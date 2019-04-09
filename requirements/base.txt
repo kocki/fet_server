@@ -1,0 +1,6 @@
+# Required by development and production environment
+
+Django==2.2
+django-cors-headers==2.5.2
+djangorestframework==3.9.2
+requests==2.21.0
